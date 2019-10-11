@@ -8,6 +8,9 @@ class Form extends Component {
         super();
 
         this.state = {
+
+            products: [],
+
             image: '',
             name: '',
             price: 0,
@@ -22,39 +25,26 @@ class Form extends Component {
         })
     }
 
-    addImage = () => {
-        const newImage = {
-            url: this.state.image
-        }
-        axios.post('/api/products', newImage).then(res => {
-            this.setState({
-                image: res.data
-            })
+    handleInput = e => {
+        let {image, name, price, value} = e.target;
+        this.setState({
+            [image]: value,
+            [name]: value,
+            [price]: value,
         })
     }
 
-    addName = () => {
-        const {image, name, price} = this.state;
-        axios.post('/api/products', {image, name, price}).then(res => 
-            this.setState({
-                products: res.data,
-                image: '',
-                name: '',
-                price: ''
-            })
-        )
+
+    addProduct = () => {
+        let {image, name, price} = this.state;
+        axios.post('/api/products', {image, name, price}).then(res => this.setState({
+            products: res.data,
+            image: '',
+            name: '',
+            price: ''
+        }))
     }
 
-    addPrice = () => {
-        const newPrice = {
-            url: this.state.price
-        }
-        axios.post('/api/products', newPrice).then(res => {
-            this.setState({
-                price: res.data
-            })
-        })
-    }
 
     render() {
         return (
@@ -79,7 +69,7 @@ class Form extends Component {
                 </div>
                 <div className='button-display'>
                     <button onClick={this.cancel}>Cancel</button>
-                    <button>Add To Inventory</button>
+                    <button onClick={() => this.addProduct()}>Add To Inventory</button>
                 </div>
             </div>
         )

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Product from '../Product/Product';
 import axios from 'axios';
 
@@ -7,18 +7,18 @@ class Dashboard extends Component {
     constructor() {
         super()
 
-        this.state ={
+        this.state = {
 
             products: [],
 
-            // image: '',
-            // name:'',
-            // price: 0,
+            image: '',
+            name: '',
+            price: 0,
             edit: false,
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getProducts()
     }
 
@@ -47,19 +47,14 @@ class Dashboard extends Component {
 
 
 
-    render(){
-        const mappedProducts = this.state.products.map((products, i) => {
-            return(
-                <Product 
-                    key={i}
-                    products={products}
-                    />
-            )
-        })
+    render() {
+        let { products, image, name, price } = this.state;
         // console.log(this.state.products)
-        return(
-            <div className='product-box'>
-                {mappedProducts}
+        return (
+            <div>
+                {products.map((products, index) => (
+                    <Product products={products} index={index}/>
+                ))}
             </div>
         )
     }
