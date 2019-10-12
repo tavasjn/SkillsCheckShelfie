@@ -45,6 +45,15 @@ class Dashboard extends Component {
         })
     }
 
+    deleteProduct = (id) => {
+        // console.log(id)
+        axios.delete(`/api/products/${id}`).then(res => {
+            this.setState({
+                products: res.data
+            })
+        })
+    }
+
 
 
     render() {
@@ -53,7 +62,8 @@ class Dashboard extends Component {
         return (
             <div>
                 {products.map((products, index) => (
-                    <Product products={products} index={index}/>
+                    <Product products={products} index={index}
+                        deleteProduct={this.deleteProduct}/>
                 ))}
             </div>
         )

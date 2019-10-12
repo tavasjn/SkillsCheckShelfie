@@ -26,17 +26,18 @@ class Form extends Component {
     }
 
     handleInput = e => {
-        let {image, name, price, value} = e.target;
+        let {name, value} = e.target;
         this.setState({
-            [image]: value,
             [name]: value,
-            [price]: value,
+            [name]: value,
+            [name]: value,
         })
     }
 
 
     addProduct = () => {
         let {image, name, price} = this.state;
+        console.log(image,name,price)
         axios.post('/api/products', {image, name, price}).then(res => this.setState({
             products: res.data,
             image: '',
@@ -55,20 +56,30 @@ class Form extends Component {
                 <div className='input-box'>
                     Image URL:
                     <br />
-                    <input></input>
+                    <input
+                    name='image'
+                    value={this.state.image}
+                    onChange={e => this.handleInput(e)}
+                    ></input>
                 </div>
                 <div className='input-box'>
                     Product Name:
                     <br />
-                    <input></input>
+                    <input
+                     name='name'
+                     value={this.state.name}
+                     onChange={e => this.handleInput(e)}></input>
                 </div>
                 <div className='input-box'>
                     Price:
                     <br/>
-                    <input></input>
+                    <input
+                     name='price'
+                     value={this.state.price}
+                     onChange={e => this.handleInput(e)}></input>
                 </div>
                 <div className='button-display'>
-                    <button onClick={this.cancel}>Cancel</button>
+                    <button onClick={() => this.cancel()}>Cancel</button>
                     <button onClick={() => this.addProduct()}>Add To Inventory</button>
                 </div>
             </div>

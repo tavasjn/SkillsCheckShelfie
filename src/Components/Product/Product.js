@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default function Product({ products, index }) {
+export default function Product({ products, index, deleteProduct }) {
+    // console.log(products) 
     return (
         <div className='product-box'>
             <products className='item-box'>
@@ -13,7 +14,7 @@ export default function Product({ products, index }) {
                     <div>${products.price}</div>
                     <div className='button-display'>
                         <button>Edit</button>
-                        <button>Delete</button>
+                        <button onClick={() => deleteProduct(products.id)}>Delete</button>
                     </div>
                 </div>
 
