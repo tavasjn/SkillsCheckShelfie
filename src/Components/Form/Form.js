@@ -4,7 +4,7 @@ import axios from 'axios';
 
 class Form extends Component {
 
-    constructor(){
+    constructor() {
         super();
 
         this.state = {
@@ -14,6 +14,9 @@ class Form extends Component {
             image: '',
             name: '',
             price: 0,
+            id: 0,
+            index: 0,
+            editing: false
         }
     }
 
@@ -26,7 +29,7 @@ class Form extends Component {
     }
 
     handleInput = e => {
-        let {name, value} = e.target;
+        let { name, value } = e.target;
         this.setState({
             [name]: value,
             [name]: value,
@@ -36,9 +39,9 @@ class Form extends Component {
 
 
     addProduct = () => {
-        let {image, name, price} = this.state;
-        console.log(image,name,price)
-        axios.post('/api/products', {image, name, price}).then(res => this.setState({
+        let { image, name, price } = this.state;
+        console.log(image, name, price)
+        axios.post('/api/products', { image, name, price }).then(res => this.setState({
             products: res.data,
             image: '',
             name: '',
@@ -47,36 +50,37 @@ class Form extends Component {
     }
 
 
+
     render() {
         return (
             <div className='add-product'>
                 <div className='image-box'>
-                    <img alt='' src={Noimage}/>
+                    <img alt='' src={Noimage} />
                 </div>
                 <div className='input-box'>
                     Image URL:
                     <br />
                     <input
-                    name='image'
-                    value={this.state.image}
-                    onChange={e => this.handleInput(e)}
+                        name='image'
+                        value={this.state.image}
+                        onChange={e => this.handleInput(e)}
                     ></input>
                 </div>
                 <div className='input-box'>
                     Product Name:
                     <br />
                     <input
-                     name='name'
-                     value={this.state.name}
-                     onChange={e => this.handleInput(e)}></input>
+                        name='name'
+                        value={this.state.name}
+                        onChange={e => this.handleInput(e)}></input>
                 </div>
                 <div className='input-box'>
                     Price:
-                    <br/>
+                    <br />
                     <input
-                     name='price'
-                     value={this.state.price}
-                     onChange={e => this.handleInput(e)}></input>
+                        name='price'
+                        value={this.state.price}
+                        onChange={e => this.handleInput(e)}></input>
                 </div>
                 <div className='button-display'>
                     <button onClick={() => this.cancel()}>Cancel</button>

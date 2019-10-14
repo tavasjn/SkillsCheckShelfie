@@ -54,6 +54,22 @@ class Dashboard extends Component {
         })
     }
 
+    toggleEdit = () => {
+        this.setState({ edit: !this.state.editing });
+    };
+
+
+    updateProduct = id => {
+        const { image, name, price } = this.state;
+
+        axios.put(`/api/products/${id}`, { image, name, price }).then(res => {
+            this.setState({
+                products: res.data
+            });
+            this.toggleEdit();
+        });
+    };
+
 
 
     render() {
@@ -63,7 +79,8 @@ class Dashboard extends Component {
             <div>
                 {products.map((products, index) => (
                     <Product products={products} index={index}
-                        deleteProduct={this.deleteProduct}/>
+                        deleteProduct={this.deleteProduct} 
+                        updateProduct={this.updateProduct}/>
                 ))}
             </div>
         )
