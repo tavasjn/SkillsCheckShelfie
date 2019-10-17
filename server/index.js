@@ -19,7 +19,7 @@ massive(CONNECTION_STRING)
 
 
 // EndPoints // 
-
+app.get('/api/products/:id', ctrl.getProduct)
 app.get('/api/products', ctrl.getProducts)
 // console.log(products)
 app.post('/api/products', ctrl.addProduct)

@@ -13,7 +13,7 @@ export default function Product({ products, index, deleteProduct, updateProduct 
                     <div>{products.name}</div>
                     <div>${products.price}</div>
                     <div className='button-display'>
-                        <button onClick={() => updateProduct(index.id)}>Edit</button>
+                        <button onClick={() => updateProduct(products.id)}>Edit</button>
                         <button onClick={() => deleteProduct(products.id)}>Delete</button>
                     </div>
                 </div>

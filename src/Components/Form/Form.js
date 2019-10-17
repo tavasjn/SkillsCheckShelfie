@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Noimage from '../../Noimage.jpg';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class Form extends Component {
 
@@ -9,14 +10,14 @@ class Form extends Component {
 
         this.state = {
 
-            products: [],
 
+            id: 0,
             image: '',
             name: '',
             price: 0,
-            id: 0,
             index: 0,
-            editing: false
+            editing: false,
+
         }
     }
 
@@ -28,27 +29,15 @@ class Form extends Component {
         })
     }
 
-    handleInput = e => {
-        let { name, value } = e.target;
-        this.setState({
-            [name]: value,
-            [name]: value,
-            [name]: value,
-        })
-    }
-
-
-    addProduct = () => {
-        let { image, name, price } = this.state;
-        console.log(image, name, price)
-        axios.post('/api/products', { image, name, price }).then(res => this.setState({
-            products: res.data,
-            image: '',
-            name: '',
-            price: ''
+    componentDidMount(){
+        axios.get(`/api/products/${id}`).then(res => this.setState({
+            id: res.data.id,
+            image: res.data.image,
+            name: res.data.name,
+            price: res.data.price
         }))
+        .catch(err => console.log(err))
     }
-
 
 
     render() {
@@ -62,8 +51,8 @@ class Form extends Component {
                     <br />
                     <input
                         name='image'
-                        value={this.state.image}
-                        onChange={e => this.handleInput(e)}
+                        value={this.props.image}
+                        onChange={e => this.props.handleInput(e)}
                     ></input>
                 </div>
                 <div className='input-box'>
@@ -71,20 +60,20 @@ class Form extends Component {
                     <br />
                     <input
                         name='name'
-                        value={this.state.name}
-                        onChange={e => this.handleInput(e)}></input>
+                        value={this.props.name}
+                        onChange={e => this.props.handleInput(e)}></input>
                 </div>
                 <div className='input-box'>
                     Price:
                     <br />
                     <input
                         name='price'
-                        value={this.state.price}
-                        onChange={e => this.handleInput(e)}></input>
+                        value={this.props.price}
+                        onChange={e => this.props.handleInput(e)}></input>
                 </div>
                 <div className='button-display'>
                     <button onClick={() => this.cancel()}>Cancel</button>
-                    <button onClick={() => this.addProduct()}>Add To Inventory</button>
+                    <button onClick={() => this.props.addProduct(this.props.image, this.props.name, this.props.price)}>Add To Inventory</button>
                 </div>
             </div>
         )
